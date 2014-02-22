@@ -40,6 +40,10 @@ enum {
     ANKI_VEHICLE_MSG_C2V_VERSION_REQUEST = 0x18,
     ANKI_VEHICLE_MSG_V2C_VERSION_RESPONSE = 0x19,
 
+    // Battery level
+    ANKI_VEHICLE_MSG_C2V_BATTERY_LEVEL_REQUEST = 0x1a,
+    ANKI_VEHICLE_MSG_V2C_BATTERY_LEVEL_RESPONSE = 0x1b,
+
     // Lights
     ANKI_VEHICLE_MSG_C2V_SET_LIGHTS = 0x1d,
 
@@ -49,6 +53,12 @@ enum {
     ANKI_VEHICLE_MSG_C2V_CANCEL_LANE_CHANGE = 0x26,
     ANKI_VEHICLE_MSG_C2V_TURN_180 = 0x32,
     ANKI_VEHICLE_MSG_C2V_SET_OFFSET_FROM_ROAD_CENTER = 0x2c,
+
+    // Vehicle position notifications
+    ANKI_VEHICLE_MSG_V2C_LOCALIZATION_POSITION_UPDATE = 0x27,
+    ANKI_VEHICLE_MSG_V2C_LOCALIZATION_TRANSITION_UPDATE = 0x29,
+    ANKI_VEHICLE_MSG_V2C_VEHICLE_DELOCALIZED = 0x2b,
+    ANKI_VEHICLE_MSG_V2C_OFFSET_FROM_ROAD_CENTER_UPDATE = 0x2d,
 
     // Light Patterns
     ANKI_VEHICLE_MSG_C2V_LIGHTS_PATTERN = 0x33,
@@ -80,6 +90,13 @@ typedef struct anki_vehicle_msg_version_response {
 } ATTRIBUTE_PACKED anki_vehicle_msg_version_response_t;
 #define ANKI_VEHICLE_MSG_V2C_VERSION_RESPONSE_SIZE   3
 
+typedef struct anki_vehicle_msg_battery_level_response {
+    uint8_t     size;
+    uint8_t     msg_id;
+    uint16_t    battery_level;
+} ATTRIBUTE_PACKED anki_vehicle_msg_battery_level_response_t;
+#define ANKI_VEHICLE_MSG_V2C_BATTERY_LEVEL_RESPONSE_SIZE  3
+
 typedef struct anki_vehicle_msg_sdk_mode {
     uint8_t     size;
     uint8_t     msg_id;
@@ -101,6 +118,7 @@ typedef struct anki_vehicle_msg_set_offset_from_road_center {
     uint8_t     msg_id;
     float       offset_mm;
 } ATTRIBUTE_PACKED anki_vehicle_msg_set_offset_from_road_center_t;
+#define ANKI_VEHICLE_MSG_C2V_SET_OFFSET_FROM_ROAD_CENTER_SIZE   5
 
 typedef struct anki_vehicle_msg_change_lane {
     uint8_t     size;
@@ -112,6 +130,32 @@ typedef struct anki_vehicle_msg_change_lane {
 } ATTRIBUTE_PACKED anki_vehicle_msg_change_lane_t;
 #define ANKI_VEHICLE_MSG_C2V_CHANGE_LANE_SIZE    9
 
+typedef struct anki_vehicle_msg_localization_position_update {
+    uint8_t     size;
+    uint8_t     msg_id;
+    uint8_t     _reserved[2];
+    float       offset_from_road_center_mm;
+    uint16_t    speed_mm_per_sec;
+    uint8_t     is_clockwise;
+} ATTRIBUTE_PACKED anki_vehicle_msg_localization_position_update_t;
+#define ANKI_VEHICLE_MSG_V2C_LOCALIZATION_POSITION_UPDATE_SIZE  10
+
+typedef struct anki_vehicle_msg_localization_transition_update {
+    uint8_t     size;
+    uint8_t     msg_id;
+    uint8_t     _reserved;
+    float       offset_from_road_center_mm;
+    uint8_t     is_clockwise;
+} ATTRIBUTE_PACKED anki_vehicle_msg_localization_transition_update_t;
+#define ANKI_VEHICLE_MSG_V2C_LOCALIZATION_TRANSITION_UPDATE_SIZE  7
+
+typedef struct anki_vehicle_msg_offset_from_road_center_update {
+    uint8_t     size;
+    uint8_t     msg_id;
+    float       offset_from_road_center_mm;
+    uint8_t     _reserved;
+} ATTRIBUTE_PACKED anki_vehicle_msg_offset_from_road_center_update_t;
+#define ANKI_VEHICLE_MSG_V2C_OFFSET_FROM_ROAD_CENTER_UPDATE_SIZE  6
 
 // Lights
 // The bits in the simple light message (ANKI_VEHICLE_MSG_C2V_SET_LIGHTS) corresponding to
@@ -283,6 +327,18 @@ uint8_t anki_vehicle_msg_ping(anki_vehicle_msg_t *msg);
  * @return size of bytes written to msg
  */
 uint8_t anki_vehicle_msg_get_version(anki_vehicle_msg_t *);
+
+/**
+ * Create a message to request the vehicle battery level.
+ *
+ * The vehicle will respond with a anki_vehicle_msg_battery_level_response_t
+ * message.
+ *
+ * @param msg A pointer to the vehicle message struct to be written.
+ *
+ * @return size of bytes written to msg
+ */
+uint8_t anki_vehicle_msg_get_battery_level(anki_vehicle_msg_t *);
 
 /**
  * Create a message to cancel a requested lane change.

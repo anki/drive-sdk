@@ -73,10 +73,36 @@ TEST test_disconnect(void) {
     PASS();
 }
 
+TEST test_get_version(void) {
+    anki_vehicle_msg_t msg;
+    uint8_t size = anki_vehicle_msg_get_version(&msg);
+
+    ASSERT_EQ(size, 2);
+
+    uint8_t expect[2] = { ANKI_VEHICLE_MSG_BASE_SIZE, ANKI_VEHICLE_MSG_C2V_VERSION_REQUEST };
+    ASSERT_BYTES_EQ(&msg, expect, sizeof(expect));
+
+    PASS();
+}
+
+TEST test_get_battery_level(void) {
+    anki_vehicle_msg_t msg;
+    uint8_t size = anki_vehicle_msg_get_battery_level(&msg);
+
+    ASSERT_EQ(size, 2);
+
+    uint8_t expect[2] = { ANKI_VEHICLE_MSG_BASE_SIZE, ANKI_VEHICLE_MSG_C2V_BATTERY_LEVEL_REQUEST };
+    ASSERT_BYTES_EQ(&msg, expect, sizeof(expect));
+
+    PASS();
+}
+
 GREATEST_SUITE(vehicle_protocol) {
     RUN_TEST(test_struct_attribute_packed);
     RUN_TEST(test_set_sdk_mode);
     RUN_TEST(test_set_speed);
     RUN_TEST(test_set_offset_from_center);
     RUN_TEST(test_disconnect);
+    RUN_TEST(test_get_version);
+    RUN_TEST(test_get_battery_level);
 }

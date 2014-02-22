@@ -145,3 +145,11 @@ uint8_t anki_vehicle_msg_get_version(anki_vehicle_msg_t *msg)
     msg->msg_id = ANKI_VEHICLE_MSG_C2V_VERSION_REQUEST;
     return ANKI_VEHICLE_MSG_TYPE_SIZE;
 }
+
+uint8_t anki_vehicle_msg_get_battery_level(anki_vehicle_msg_t *msg)
+{
+    assert(msg != NULL);
+    msg->size = ANKI_VEHICLE_MSG_BASE_SIZE;
+    msg->msg_id = ANKI_VEHICLE_MSG_C2V_BATTERY_LEVEL_REQUEST;
+    return ANKI_VEHICLE_MSG_TYPE_SIZE;
+}
