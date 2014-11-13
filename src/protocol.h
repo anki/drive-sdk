@@ -97,12 +97,14 @@ typedef struct anki_vehicle_msg_battery_level_response {
 } ATTRIBUTE_PACKED anki_vehicle_msg_battery_level_response_t;
 #define ANKI_VEHICLE_MSG_V2C_BATTERY_LEVEL_RESPONSE_SIZE  3
 
+#define ANKI_VEHICLE_SDK_OPTION_OVERRIDE_LOCALIZATION   0x1
 typedef struct anki_vehicle_msg_sdk_mode {
     uint8_t     size;
     uint8_t     msg_id;
     uint8_t     on;
+    uint8_t     flags;
 } ATTRIBUTE_PACKED anki_vehicle_msg_sdk_mode_t;
-#define ANKI_VEHICLE_MSG_SDK_MODE_SIZE   2
+#define ANKI_VEHICLE_MSG_SDK_MODE_SIZE   3
 
 typedef struct anki_vehicle_msg_set_speed {
     uint8_t     size;
@@ -124,11 +126,12 @@ typedef struct anki_vehicle_msg_change_lane {
     uint8_t     size;
     uint8_t     msg_id;
     uint16_t    horizontal_speed_mm_per_sec;
+    uint16_t    horizontal_accel_mm_per_sec2; 
     float       offset_from_road_center_mm;
     uint8_t     hop_intent;
     uint8_t     tag;
 } ATTRIBUTE_PACKED anki_vehicle_msg_change_lane_t;
-#define ANKI_VEHICLE_MSG_C2V_CHANGE_LANE_SIZE    9
+#define ANKI_VEHICLE_MSG_C2V_CHANGE_LANE_SIZE    11
 
 typedef struct anki_vehicle_msg_localization_position_update {
     uint8_t     size;
@@ -215,12 +218,17 @@ typedef struct anki_vehicle_msg_lights_pattern {
 /**
  * Create a message for setting the SDK mode.
  *
+ * Note that in order to set the speed and change lanes in the current SDK,
+ * the ANKI_VEHICLE_SDK_OPTION_OVERRIDE_LOCALIZATION flag must be set
+ * when enabling the SDK mode.
+ *
  * @param msg A pointer to the vehicle message struct to be written.
  * @param on Whether to turn SDK mode on (1) or off (0).
+ * @param flags Option flags to specify vehicle behaviors while SDK mode is enabled.
  *
  * @return size of bytes written to msg
  */
-uint8_t anki_vehicle_msg_set_sdk_mode(anki_vehicle_msg_t *msg, uint8_t on);
+uint8_t anki_vehicle_msg_set_sdk_mode(anki_vehicle_msg_t *msg, uint8_t on, uint8_t flags);
 
 /**
  * Create a message for setting the vehicle speed.
@@ -259,11 +267,15 @@ uint8_t anki_vehicle_msg_set_offset_from_road_center(anki_vehicle_msg_t *msg, fl
  *
  * @param msg A pointer to the vehicle message struct to be written.
  * @param horizontal_speed_mm_per_sec The horizontal speed at for the lane change in mm/sec.
+ * @param horizontal_accel_mm_per_sec The horizontal acceleration for the lane change in mm/sec.
  * @param offset_from_center_mm The target offset from the road center in mm.
  *
  * @return size of bytes written to msg
  */
-uint8_t anki_vehicle_msg_change_lane(anki_vehicle_msg_t *msg, uint16_t horizontal_speed_mm_per_sec, float offset_from_center_mm);
+uint8_t anki_vehicle_msg_change_lane(anki_vehicle_msg_t *msg,
+                                     uint16_t horizontal_speed_mm_per_sec,
+                                     uint16_t horizontal_accel_mm_per_sec2,
+                                     float offset_from_center_mm);
 
 /**
  * Create a message to set vehicle light directly using a mask.

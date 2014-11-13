@@ -33,11 +33,11 @@ TEST test_struct_attribute_packed(void) {
 
 TEST test_set_sdk_mode(void) {
     anki_vehicle_msg_t msg;
-    uint8_t size = anki_vehicle_msg_set_sdk_mode(&msg, 1);
-    ASSERT_EQ(size, 3);
+    uint8_t size = anki_vehicle_msg_set_sdk_mode(&msg, 1, ANKI_VEHICLE_SDK_OPTION_OVERRIDE_LOCALIZATION);
+    ASSERT_EQ(size, 4);
 
-    uint8_t expect[3] = { 0x02, 0x90, 0x01 };
-    ASSERT_BYTES_EQ(&msg, expect, 3);
+    uint8_t expect[4] = { 0x03, 0x90, 0x01, 0x01 };
+    ASSERT_BYTES_EQ(&msg, expect, 4);
     PASS();
 }
 
@@ -60,6 +60,17 @@ TEST test_set_offset_from_center(void) {
 
     uint8_t expect[6] = { 0x5, 0x2c, 0, 0, 0, 0 };
     ASSERT_BYTES_EQ(&msg, expect, 6);
+    PASS();
+}
+
+TEST test_change_lane(void) {
+    anki_vehicle_msg_t msg;
+    memset(&msg, 0, sizeof(anki_vehicle_msg_change_lane_t));
+    uint8_t size = anki_vehicle_msg_change_lane(&msg, 1000, 10000, 20.f);
+    ASSERT_EQ(size, sizeof(anki_vehicle_msg_change_lane_t));
+
+    uint8_t expect[12] = { 0x0b, 0x25, 0xe8, 0x03, 0x10, 0x27, 0x00, 0x00, 0xa0, 0x41, 0, 0 };
+    ASSERT_BYTES_EQ(&msg, expect, 12);
     PASS();
 }
 
@@ -102,6 +113,7 @@ GREATEST_SUITE(vehicle_protocol) {
     RUN_TEST(test_set_sdk_mode);
     RUN_TEST(test_set_speed);
     RUN_TEST(test_set_offset_from_center);
+    RUN_TEST(test_change_lane);
     RUN_TEST(test_disconnect);
     RUN_TEST(test_get_version);
     RUN_TEST(test_get_battery_level);
