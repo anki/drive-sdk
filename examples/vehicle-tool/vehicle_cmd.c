@@ -610,26 +610,27 @@ static void cmd_anki_vehicle_change_lane(int argcp, char **argvp)
                 return;
         }
 
-        if (argcp < 2) {
-                rl_printf("Usage: %s <horizontal speed (mm/sec)> <offset (mm)>\n", argvp[0]);
+        if (argcp < 3) {
+                rl_printf("Usage: %s <horizontal speed (mm/sec)> <horizontal accel (mm/sec^2)> <offset (mm)>\n", argvp[0]);
                 return;
         }
 
         int handle = vehicle.write_char.value_handle;
 
         int16_t hspeed = (int16_t)atoi(argvp[1]);
+        int16_t haccel = (int16_t)atoi(argvp[2]);
         float offset = 1.0;
-        if (argcp > 2) {
-            offset = strtof(argvp[2], NULL);
+        if (argcp > 3) {
+            offset = strtof(argvp[3], NULL);
         }
-        rl_printf("changing lane at %d (offset = %1.2f)\n", hspeed, offset);
+        rl_printf("changing lane at %d (accel = %d | offset = %1.2f)\n", hspeed, haccel, offset);
 
         anki_vehicle_msg_t msg;
         size_t plen = anki_vehicle_msg_set_offset_from_road_center(&msg, 0.0);
         gatt_write_char(attrib, handle, (uint8_t*)&msg, plen, NULL, NULL);
 
         anki_vehicle_msg_t lane_msg;
-        size_t lane_plen = anki_vehicle_msg_change_lane(&lane_msg, hspeed, offset);
+        size_t lane_plen = anki_vehicle_msg_change_lane(&lane_msg, hspeed, haccel, offset);
         gatt_write_char(attrib, handle, (uint8_t*)&lane_msg, lane_plen, NULL, NULL);
 }
 
@@ -851,8 +852,8 @@ static struct {
                 "Request vehicle software version."},
         { "set-speed",          cmd_anki_vehicle_set_speed,  "<speed> <accel>",
                 "Set vehicle Speed (mm/sec) with acceleration (mm/sec^2)"},
-        { "change-lane",          cmd_anki_vehicle_change_lane,  "<horizontal speed> <relative offset> (right(+), left(-))",
-                "Change lanes at speed (mm/sec) in the specified direction (offset)"},
+        { "change-lane",          cmd_anki_vehicle_change_lane,  "<horizontal speed> <horizontal accel> <relative offset> (right(+), left(-))",
+                "Change lanes at speed (mm/sec), accel (mm/sec^2) in the specified direction (offset)"},
         { "set-lights-pattern",          cmd_anki_vehicle_lights_pattern,  "<channel> <effect> <start> <end> <cycles_per_min>",
                 "Set lights pattern for vehicle LEDs."},
         { "set-engine-lights",          cmd_anki_vehicle_engine_lights,  "<red> <green> <blue> <effect> <cycles_per_min>",

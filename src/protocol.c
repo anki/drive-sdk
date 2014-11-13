@@ -63,7 +63,10 @@ uint8_t anki_vehicle_msg_set_offset_from_road_center(anki_vehicle_msg_t *msg, fl
     return sizeof(anki_vehicle_msg_set_offset_from_road_center_t);
 }
 
-uint8_t anki_vehicle_msg_change_lane(anki_vehicle_msg_t *message, uint16_t horizontal_speed_mm_per_sec, float offset_from_center_mm)
+uint8_t anki_vehicle_msg_change_lane(anki_vehicle_msg_t *message,
+                                     uint16_t horizontal_speed_mm_per_sec,
+                                     uint16_t horizontal_accel_mm_per_sec2,
+                                     float offset_from_center_mm)
 {
     assert(message != NULL);
     memset(message, 0, sizeof(anki_vehicle_msg_t));
@@ -72,6 +75,7 @@ uint8_t anki_vehicle_msg_change_lane(anki_vehicle_msg_t *message, uint16_t horiz
     msg->size = ANKI_VEHICLE_MSG_C2V_CHANGE_LANE_SIZE;
     msg->msg_id = ANKI_VEHICLE_MSG_C2V_CHANGE_LANE;
     msg->horizontal_speed_mm_per_sec = horizontal_speed_mm_per_sec;
+    msg->horizontal_accel_mm_per_sec2 = horizontal_accel_mm_per_sec2;
     msg->offset_from_road_center_mm = offset_from_center_mm;
 
     return sizeof(anki_vehicle_msg_change_lane_t);

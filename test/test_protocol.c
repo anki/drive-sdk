@@ -63,6 +63,17 @@ TEST test_set_offset_from_center(void) {
     PASS();
 }
 
+TEST test_change_lane(void) {
+    anki_vehicle_msg_t msg;
+    memset(&msg, 0, sizeof(anki_vehicle_msg_change_lane_t));
+    uint8_t size = anki_vehicle_msg_change_lane(&msg, 1000, 10000, 20.f);
+    ASSERT_EQ(size, sizeof(anki_vehicle_msg_change_lane_t));
+
+    uint8_t expect[12] = { 0x0b, 0x25, 0xe8, 0x03, 0x10, 0x27, 0x00, 0x00, 0xa0, 0x41, 0, 0 };
+    ASSERT_BYTES_EQ(&msg, expect, 12);
+    PASS();
+}
+
 TEST test_disconnect(void) {
     anki_vehicle_msg_t msg;
     anki_vehicle_msg_disconnect(&msg);
@@ -102,6 +113,7 @@ GREATEST_SUITE(vehicle_protocol) {
     RUN_TEST(test_set_sdk_mode);
     RUN_TEST(test_set_speed);
     RUN_TEST(test_set_offset_from_center);
+    RUN_TEST(test_change_lane);
     RUN_TEST(test_disconnect);
     RUN_TEST(test_get_version);
     RUN_TEST(test_get_battery_level);
