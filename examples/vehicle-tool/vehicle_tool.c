@@ -138,7 +138,7 @@ static GOptionEntry options[] = {
 	{ NULL },
 };
 
-int main(int argc, char *argv[])
+int cmd_prompt(int argc, char *argv[])
 {
 	GOptionContext *context;
 	GOptionGroup *gatt_group, *params_group, *char_rw_group;
@@ -169,4 +169,19 @@ done:
 		exit(EXIT_FAILURE);
 	else
 		exit(EXIT_SUCCESS);
+}
+
+int main(void)
+{
+	int val_input;
+	int argc;
+	char* argv[50]
+	for(;;){
+		scanf("%d",&val_input);
+		switch(val_input){
+			case '1':
+				argc=3;
+				argv[]={"vehicle-tool","--adapter=hci0","--device="}
+		}
+	}
 }
