@@ -5,7 +5,7 @@ The Anki Drive SDK is a C implementation of the message protocols and data parsi
 
 The Anki Drive SDK is licensed under the Apache 2.0 license. Projects in the `examples` folder are released under separate licenses.
 
-- web: http://developer.anki.com/drive-sdk
+- web: http://anki.github.io/drive-sdk/
 - StackOverflow Tag: anki-drive-sdk
 - Issues: [GitHub Issues](https://github.com/anki/drive-sdk/issues)
 - Guides: [Getting Started on Ubuntu][ubuntu-getting-started], [Programming Guide][]
