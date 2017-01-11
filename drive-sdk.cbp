@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="drive-sdk" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/drive-sdk" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/drive-sdk" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="cmake/modules/FindGLIB2.cmake" />
+		<Unit filename="cmake/modules/FindReadline.cmake" />
+		<Unit filename="cmake/modules/MacroOutOfSourceBuild.cmake" />
+		<Unit filename="cmake/modules/TargetDistclean.cmake" />
+		<Unit filename="deps/bzle/CMakeLists.txt" />
+		<Unit filename="deps/bzle/COPYING" />
+		<Unit filename="deps/bzle/README.md" />
+		<Unit filename="deps/bzle/cmake/modules/COPYING-CMAKE-MODULES" />
+		<Unit filename="deps/bzle/cmake/modules/FindGLIB2.cmake" />
+		<Unit filename="deps/bzle/cmake/modules/MacroOutOfSourceBuild.cmake" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/bluetooth.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/btio.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/hci.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/hci_lib.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/l2cap.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/sco.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/sdp.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/sdp_lib.h" />
+		<Unit filename="deps/bzle/include/bzle/bluetooth/uuid.h" />
+		<Unit filename="deps/bzle/include/bzle/gatt/att.h" />
+		<Unit filename="deps/bzle/include/bzle/gatt/gatt.h" />
+		<Unit filename="deps/bzle/include/bzle/gatt/gattrib.h" />
+		<Unit filename="deps/bzle/include/bzle/gatt/utils.h" />
+		<Unit filename="deps/bzle/src/CMakeLists.txt" />
+		<Unit filename="deps/bzle/src/att.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/bluetooth.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/btio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/gatt.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/gattrib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/hci.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/log.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/log.h" />
+		<Unit filename="deps/bzle/src/sdp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/src/uuid.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/tools/CMakeLists.txt" />
+		<Unit filename="deps/bzle/tools/csr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/tools/csr.h" />
+		<Unit filename="deps/bzle/tools/hciconfig.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/tools/textfile.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="deps/bzle/tools/textfile.h" />
+		<Unit filename="examples/CMakeLists.txt" />
+		<Unit filename="examples/README.md" />
+		<Unit filename="examples/vehicle-scan/CMakeLists.txt" />
+		<Unit filename="examples/vehicle-scan/README.md" />
+		<Unit filename="examples/vehicle-scan/uthash.h" />
+		<Unit filename="examples/vehicle-scan/vehicle-scan.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="examples/vehicle-tool/CMakeLists.txt" />
+		<Unit filename="examples/vehicle-tool/display.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="examples/vehicle-tool/display.h" />
+		<Unit filename="examples/vehicle-tool/vehicle_cmd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="examples/vehicle-tool/vehicle_tool.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="include/ankidrive.h" />
+		<Unit filename="include/ankidrive/advertisement.h" />
+		<Unit filename="include/ankidrive/common.h" />
+		<Unit filename="include/ankidrive/protocol.h" />
+		<Unit filename="include/ankidrive/uuid.h" />
+		<Unit filename="include/ankidrive/vehicle_gatt_profile.h" />
+		<Unit filename="include/ankidrive/version.h" />
+		<Unit filename="src/CMakeLists.txt" />
+		<Unit filename="src/advertisement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/advertisement.h" />
+		<Unit filename="src/anki_util.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/anki_util.h" />
+		<Unit filename="src/common.h" />
+		<Unit filename="src/eir.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/eir.h" />
+		<Unit filename="src/protocol.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/protocol.h" />
+		<Unit filename="src/uuid.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/uuid.h" />
+		<Unit filename="src/vehicle_gatt_profile.h" />
+		<Unit filename="test/CMakeLists.txt" />
+		<Unit filename="test/adv_data.h" />
+		<Unit filename="test/anki_greatest.h" />
+		<Unit filename="test/greatest.h" />
+		<Unit filename="test/test_ble_advertisement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test/test_protocol.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test/test_suite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test/test_vehicle_advertisement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
