@@ -138,6 +138,9 @@ static GOptionEntry options[] = {
 	{ NULL },
 };
 
+int interactive(const char *src, const char *dst,
+            const char *dst_type, int psm);
+
 int main(int argc, char *argv[])
 {
 	GOptionContext *context;

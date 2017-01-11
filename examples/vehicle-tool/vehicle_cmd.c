@@ -665,7 +665,7 @@ anki_vehicle_light_effect_t get_effect_by_name(const char *name)
 
         uint8_t count = sizeof(effects_by_name)/sizeof(effects_by_name[0]);
         for (i = 0; i < count; i++) {
-                if (strncmp(name, effects_by_name[i], sizeof(effects_by_name[i])) == 0) {
+                if (strncmp(name, effects_by_name[i], strlen(effects_by_name[i])) == 0) {
                     effect = i;
                     break;
                 }
@@ -793,7 +793,7 @@ anki_vehicle_turn_type_t get_turn_type_by_name(const char *name)
 
         uint8_t count = sizeof(turn_types_by_name)/sizeof(turn_types_by_name[0]);
         for (i = 0; i < count; i++) {
-                if (strncmp(name, turn_types_by_name[i], sizeof(turn_types_by_name[i])) == 0) {
+                if (strncmp(name, turn_types_by_name[i], strlen(turn_types_by_name[i])) == 0) {
                     turn_type = (anki_vehicle_turn_type_t)i;
                     break;
                 }
