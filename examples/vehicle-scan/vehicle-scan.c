@@ -360,12 +360,18 @@ static int print_advertising_devices(int dd, uint8_t filter_type)
                                 case 4:
                                     model = "Katal";
                                     break;
+                                case 8:
+                                    model = "GroundShock";
+                                    break;
+                                case 9:
+                                    model = "Skull";
+                                    break;
                                 default:
                                     model = "Unknown";
                                     break;
                             }
 
-                            printf("%s [v%04x] (%s %04x)\n", v->adv.local_name.name, v->adv.local_name.version & 0xffff, model, v->adv.mfg_data.identifier & 0xffff);
+                            printf("%s [v%04x] (%d=%s %04x)\n", v->adv.local_name.name, v->adv.local_name.version & 0xffff, v->adv.mfg_data.model_id, model, v->adv.mfg_data.identifier & 0xffff);
                         }
                 }
         }
